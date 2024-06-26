@@ -24,9 +24,6 @@ def generate_graphDocuments(model: str, graph: Neo4jGraph, chunkId_chunkDoc_list
     logging.info(f"allowedNodes: {allowedNodes}, allowedRelationship: {allowedRelationship}")
 
     graph_documents = []
-
-    print("===============================================================================================")
-    print("model", model)
     if model == "diffbot":
         graph_documents = get_graph_from_diffbot(graph, chunkId_chunkDoc_list)
 
@@ -39,7 +36,7 @@ def generate_graphDocuments(model: str, graph: Neo4jGraph, chunkId_chunkDoc_list
     elif model in GROQ_MODELS :
         graph_documents = get_graph_from_Groq_Llama3(MODEL_VERSIONS[model], graph, chunkId_chunkDoc_list, allowedNodes, allowedRelationship)
     else:
-        raise Exception('Invalid LLM Model')
+        raise Exception(f'Invalid LLM Model: {model_name}')
 
     logging.info(f"graph_documents = {len(graph_documents)}")
     return graph_documents
